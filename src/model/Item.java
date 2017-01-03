@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="item")
 public class Item implements Serializable{
@@ -47,6 +49,7 @@ public class Item implements Serializable{
 	}
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="loan_id", nullable = false)
+	@JsonBackReference
 	public Loan getLoan() {
 		return loan;
 	}

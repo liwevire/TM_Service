@@ -11,8 +11,23 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@NamedQueries({
+	@NamedQuery(
+			name="listAllCustomer",
+			query="from Customer"
+			),
+	@NamedQuery(
+			name="findCustomerByName",
+			query="from Customer c where lower(c.name) like ':name%'"
+			)
+})
 @Entity
 @Table(name="customer")
 public class Customer implements Serializable{
@@ -111,6 +126,7 @@ public class Customer implements Serializable{
 		this.phone = phone;
 	}
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
+	@JsonManagedReference
 	public Set<Loan> getLoans() {
 		return loans;
 	}
