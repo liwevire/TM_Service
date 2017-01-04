@@ -1,8 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -31,7 +33,7 @@ public class Loan implements Serializable{
 	Customer customer;
 	Date date;
 	double amount;
-	Set<Item> items = new HashSet<Item>();
+	List<Item> items = new ArrayList<Item>();
 	public Loan() {		super();	}
 	public Loan(Customer customer, Date date, double amount) {
 		super();
@@ -39,7 +41,7 @@ public class Loan implements Serializable{
 		this.date = date;
 		this.amount = amount;
 	}
-	public Loan(Customer customer, Date date, double amount, Set<Item> items) {
+	public Loan(Customer customer, Date date, double amount, List<Item> items) {
 		super();
 		this.customer = customer;
 		this.date = date;
@@ -80,10 +82,10 @@ public class Loan implements Serializable{
 	}
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="loan", cascade=CascadeType.ALL)
 	@JsonManagedReference
-	public Set<Item> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
-	public void setItems(Set<Item> items) {
+	public void setItems(List<Item> items) {
 		this.items = items;
 	}
 }
