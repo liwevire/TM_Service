@@ -29,52 +29,7 @@ public class ManageCustomer {
 		List<Customer> customers = null;
 		try{
 			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("findCustomerByName").setString("name", name.toLowerCase());
-			System.out.println(name);
-			customers = (List<Customer>)query.list();
-			System.out.println(customers);
-			for (Customer customer : customers) {
-				System.out.println(customer.getCustomerId());
-			}
-			tx.commit();
-		}catch (HibernateException he) {
-			if(tx!=null) tx.rollback();
-			he.printStackTrace();
-		}
-		return customers;
-	}
-	
-	
-	
-	///////////////////////
-	/////////Model/////////
-	///////////////////////
-	public long addCustomer(Customer customer){
-		initializeFactory();
-		Session session = factory.openSession();
-		Transaction tx = null;
-		long customerID = 0;
-		try{
-			tx = session.beginTransaction();
-			customerID = (long) session.save(customer);
-			tx.commit();
-		}catch (HibernateException he) {
-			if(tx!=null) tx.rollback();
-			he.printStackTrace();
-		}
-		finally {
-			session.close();
-		}
-		return customerID;
-	}
-	public List<Customer> listCustomer(){
-		initializeFactory();
-		Session session = factory.openSession();
-		Transaction tx = null;
-		List<Customer> customers = null;
-		try{
-			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("listAllCustomer");
+			Query query = session.getNamedQuery("findCustomerByName").setString("name", name.toLowerCase()+'%');
 			customers = (List<Customer>)query.list();
 			tx.commit();
 		}catch (HibernateException he) {
@@ -83,4 +38,5 @@ public class ManageCustomer {
 		}
 		return customers;
 	}
+	
 }

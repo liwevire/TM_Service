@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 			),
 	@NamedQuery(
 			name="findCustomerByName",
-			query="from Customer c where lower(c.name) like ':name%'"
+			query="from Customer c where lower(c.name) like :name"
 			)
 })
 @Entity
@@ -125,7 +126,7 @@ public class Customer implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	public Set<Loan> getLoans() {
 		return loans;
