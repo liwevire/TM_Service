@@ -1,6 +1,7 @@
 package utility;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -32,5 +33,21 @@ public class ManageLoan {
 			he.printStackTrace();
 		}
 		return loanId;
+	}
+	public Loan getLoan(long loanId) {
+		initializeFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Loan loan = null;
+		try{
+			tx = session.beginTransaction();
+			Query query = session.getNamedQuery("getLoanById").setLong("loanId", loanId);
+			loan = (Loan)query.list().get(0);
+			tx.commit();
+		}catch (HibernateException he) {
+			if(tx!=null) tx.rollback();
+			he.printStackTrace();
+		}
+		return loan;
 	}
 }

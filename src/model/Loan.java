@@ -14,12 +14,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+@NamedQueries({
+	@NamedQuery(
+			name="getLoanById",
+			query="from Loan l where l.loanId = :loanId"
+			)
+})
 @Entity
 @Table(name="loan")
 public class Loan implements Serializable{
@@ -55,7 +63,7 @@ public class Loan implements Serializable{
 	public void setLoanId(long loanId) {
 		this.loanId= loanId;
 	}
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id", nullable = false)
 	@JsonBackReference
 	public Customer getCustomer() {
