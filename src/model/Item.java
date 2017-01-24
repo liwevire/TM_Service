@@ -11,20 +11,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+@NamedQueries({
+	@NamedQuery(
+			name="getItemById",
+			query="from Item i where i.itemId = :itemId"
+			)
+})
 @Entity
 @Table(name="item")
 public class Item implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="item_id", nullable=false, unique=true)
 	long itemId;
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="loan_id", nullable = false)
+	@JsonBackReference
 	Loan loan;
+	@Column(name="name", nullable=false)
 	String name;
+	@Column(name="weight", nullable=false)
 	double weight;
 	public Item() {		super();	}
 	public Item(String name, double weight) {
@@ -38,32 +51,24 @@ public class Item implements Serializable{
 		this.name = name;
 		this.weight = weight;
 	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="item_id", nullable=false, unique=true)
 	public long getItemId() {
 		return itemId;
 	}
 	public void setItemId(long itemId) {
 		this.itemId = itemId;
 	}
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="loan_id", nullable = false)
-	@JsonBackReference
 	public Loan getLoan() {
 		return loan;
 	}
 	public void setLoan(Loan loan) {
 		this.loan = loan;
 	}
-	@Column(name="name", nullable=false)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name="weight", nullable=false)
 	public double getWeight() {
 		return weight;
 	}

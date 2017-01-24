@@ -11,7 +11,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import model.Customer;
-import model.Item;
 import model.Loan;
 
 public class DBUtility {

@@ -17,8 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @NamedQueries({
 	@NamedQuery(
 			name="listAllCustomer",
@@ -27,23 +25,36 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@NamedQuery(
 			name="findCustomerByName",
 			query="from Customer c where lower(c.name) like :name"
+			),
+	@NamedQuery(
+			name="getCustomerByLoanId",
+			query="from Customer c where c.customerId = (select l.customer.customerId from Loan l where l.loanId = :loanId)"
 			)
 })
 @Entity
 @Table(name="customer")
 public class Customer implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="customer_id", unique=true, nullable =false)
 	long customerId;
+	@Column(name="name")
 	String name;
+	@Column(name="secondary_name")
 	String secondaryName;
+	@Column(name="date")
 	Date date;
+	@Column(name="address")
 	String address;
+	@Column(name="post")
 	String post;
+	@Column(name="pin")
 	String pin;
+	@Column(name="phone")
 	String phone;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade=CascadeType.ALL)
+	//@JsonManagedReference
 	Set<Loan> loans = new HashSet<Loan>();
 	public Customer() {		super();	}
 	public Customer(String name, String secondaryName, Date date, String address, String post, String pin, String phone) {
@@ -68,23 +79,18 @@ public class Customer implements Serializable{
 		this.phone = phone;
 		this.loans = loans;
 	}
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="customer_id", unique=true, nullable =false)
 	public long getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	@Column(name="name")
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name="secondary_name")
 	public String getSecondaryName() {
 		return secondaryName;
 	}
@@ -98,36 +104,30 @@ public class Customer implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	@Column(name="address")
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	@Column(name="post")
 	public String getPost() {
 		return post;
 	}
 	public void setPost(String post) {
 		this.post = post;
 	}
-	@Column(name="pin")
 	public String getPin() {
 		return pin;
 	}
 	public void setPin(String pin) {
 		this.pin = pin;
 	}
-	@Column(name="phone")
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade=CascadeType.ALL)
-	@JsonManagedReference
 	public Set<Loan> getLoans() {
 		return loans;
 	}

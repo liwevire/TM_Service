@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 import model.Customer;
+import model.Loan;
 
 public class ManageCustomer {
 	private static SessionFactory factory;
@@ -38,5 +39,20 @@ public class ManageCustomer {
 		}
 		return customers;
 	}
-	
+	public Customer getCustomer(long loanId) {
+		initializeFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Customer customer = null;
+		try{
+			tx = session.beginTransaction();
+			Query query = session.getNamedQuery("getCustomerByLoanId").setLong("loanId", loanId);
+			customer = (Customer)query.list().get(0);
+			tx.commit();
+		}catch (HibernateException he) {
+			if(tx!=null) tx.rollback();
+			he.printStackTrace();
+		}
+		return customer;
+	}
 }

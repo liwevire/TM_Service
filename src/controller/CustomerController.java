@@ -11,13 +11,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import model.Customer;
 import utility.ManageCustomer;
-//import utility.DBUtility;
 
 @EnableWebMvc
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public List<Customer> findCustomer(@RequestParam("name") String name) throws Exception {
 		return new ManageCustomer().listCustomer(name);
@@ -27,5 +25,10 @@ public class CustomerController {
 	public List<Customer> findCustomer(@RequestParam("name") String name,
 			@RequestParam("secondaryName") String secondaryName) {
 		return new ManageCustomer().listCustomer(name);
+	}
+	@RequestMapping(value="/get", method=RequestMethod.GET)
+	public Customer getCustomer(@RequestParam("loanId") long loanId ) {
+		Customer customer = new ManageCustomer().getCustomer(loanId);	
+		return customer;
 	}
 }
