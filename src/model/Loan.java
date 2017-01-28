@@ -20,9 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @NamedQueries({
 	@NamedQuery(
@@ -44,23 +42,31 @@ public class Loan implements Serializable{
 	Customer customer;
 	@Column(name="date", nullable=false)
 	Date date;
-	@Column(name="amount", nullable=false)
-	double amount;
+	@Column(name="principal", nullable=false)
+	double principal;
+	@Column(name="return_amount")
+	double returnAmount;
+	@Column(name="loan_status")
+	String loanStatus;
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="loan", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	List<Item> items = new ArrayList<Item>();
 	public Loan() {		super();	}
-	public Loan(Customer customer, Date date, double amount) {
+	public Loan(Customer customer, Date date, double principal, double returnAmount, String loanStatus) {
 		super();
 		this.customer = customer;
 		this.date = date;
-		this.amount = amount;
+		this.principal = principal;
+		this.returnAmount = returnAmount;
+		this.loanStatus = loanStatus;
 	}
-	public Loan(Customer customer, Date date, double amount, List<Item> items) {
+	public Loan(Customer customer, Date date, double principal, double returnAmount, String loanStatus,	List<Item> items) {
 		super();
 		this.customer = customer;
 		this.date = date;
-		this.amount = amount;
+		this.principal = principal;
+		this.returnAmount = returnAmount;
+		this.loanStatus = loanStatus;
 		this.items = items;
 	}
 	public long getLoanId() {
@@ -81,11 +87,23 @@ public class Loan implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public double getAmount() {
-		return amount;
+	public double getPrincipal() {
+		return principal;
 	}
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setPrincipal(double principal) {
+		this.principal = principal;
+	}
+	public double getReturnAmount() {
+		return returnAmount;
+	}
+	public void setReturnAmount(double returnAmount) {
+		this.returnAmount = returnAmount;
+	}
+	public String getLoanStatus() {
+		return loanStatus;
+	}
+	public void setLoanStatus(String loanStatus) {
+		this.loanStatus = loanStatus;
 	}
 	public List<Item> getItems() {
 		return items;

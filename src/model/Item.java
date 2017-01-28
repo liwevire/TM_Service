@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,8 +23,20 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 	@NamedQuery(
 			name="getItemById",
 			query="from Item i where i.itemId = :itemId"
+			),
+	@NamedQuery(
+			name="deleteItemsbyLoanId",
+			query="delete from Item i where i.loan.loanId = :loanId"
+			)
+//	select e.name, a.city from Employee e INNER JOIN e.address a
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(
+			name="test",
+			query = "delete from Item i where i.loan.loanId = :loanId"
 			)
 })
+
 @Entity
 @Table(name="item")
 public class Item implements Serializable{

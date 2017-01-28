@@ -28,4 +28,12 @@ public class LoanController {
 		Loan loan = new ManageLoan().getLoan(loanId);	
 		return loan;
 	}
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public long updateLoan(@RequestBody Loan loan) {
+		for (Item item: loan.getItems()) {
+			item.setLoan(loan);
+		}
+		long result = new ManageLoan().updateLoan(loan); 
+		return result;
+	}
 }
