@@ -18,9 +18,4 @@ public class ItemController {
 		Item item = new ManageItem().getItem(itemId);	
 		return item;
 	}
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String deleteItem(@RequestParam("loanId") long loanId ) {
-		new ManageItem().deleteItem(loanId);	
-		return "executed";
-	}
 }
