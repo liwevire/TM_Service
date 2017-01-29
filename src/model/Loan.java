@@ -44,29 +44,40 @@ public class Loan implements Serializable{
 	Date date;
 	@Column(name="principal", nullable=false)
 	double principal;
+	@Column(name="return_date")
+	Date returnDate;
 	@Column(name="return_amount")
 	double returnAmount;
-	@Column(name="loan_status")
+	@Column(name="return_status")
 	String loanStatus;
+	@Column(name="comments")
+	String comments;
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="loan", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	List<Item> items = new ArrayList<Item>();
 	public Loan() {		super();	}
-	public Loan(Customer customer, Date date, double principal, double returnAmount, String loanStatus) {
+	public Loan(Customer customer, Date date, double principal, Date returnDate, double returnAmount, String loanStatus,
+			String comments) {
 		super();
 		this.customer = customer;
 		this.date = date;
 		this.principal = principal;
+		this.returnDate = returnDate;
 		this.returnAmount = returnAmount;
 		this.loanStatus = loanStatus;
+		this.comments = comments;
 	}
-	public Loan(Customer customer, Date date, double principal, double returnAmount, String loanStatus,	List<Item> items) {
+
+	public Loan(Customer customer, Date date, double principal, Date returnDate, double returnAmount, String loanStatus,
+			String comments, List<Item> items) {
 		super();
 		this.customer = customer;
 		this.date = date;
 		this.principal = principal;
+		this.returnDate = returnDate;
 		this.returnAmount = returnAmount;
 		this.loanStatus = loanStatus;
+		this.comments = comments;
 		this.items = items;
 	}
 	public long getLoanId() {
@@ -93,6 +104,12 @@ public class Loan implements Serializable{
 	public void setPrincipal(double principal) {
 		this.principal = principal;
 	}
+	public Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
 	public double getReturnAmount() {
 		return returnAmount;
 	}
@@ -110,5 +127,11 @@ public class Loan implements Serializable{
 	}
 	public void setItems(List<Item> items) {
 		this.items = items;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 }
