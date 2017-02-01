@@ -50,20 +50,4 @@ public class ManageLoan {
 		}
 		return loan;
 	}
-	public long updateLoan(Loan loan){
-		initializeFactory();
-		Session session = factory.openSession();
-		Transaction tx = null;
-		new ManageItem().deleteItem(loan.getLoanId());
-		long loanId = 0;
-		try {
-			tx = session.beginTransaction();
-			session.update(loan);
-			tx.commit();
-		} catch (HibernateException he) {
-			if(tx!=null) tx.rollback();
-			he.printStackTrace();
-		}
-		return loanId;
-	}
 }

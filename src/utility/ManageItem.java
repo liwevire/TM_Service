@@ -34,26 +34,8 @@ public class ManageItem {
 			if(tx!=null) tx.rollback();
 			he.printStackTrace();
 		}
+		System.out.println(item.getLoan().getCustomer().getName());
+		System.out.println("test");
 		return item;
-	}
-	public void deleteItem(long loanId) {
-		initializeFactory();
-		Session session = factory.openSession();
-		Transaction tx = null;
-		Item item = null;
-		try{
-			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("deleteItemsbyLoanId").setLong("loanId", loanId);
-//			Query query = session.getNamedQuery("test").setLong("loanId", loanId);
-			query.executeUpdate();
-			tx.commit();
-		}catch (HibernateException he) {
-			if(tx!=null) tx.rollback();
-			he.printStackTrace();
-		}
-		finally {
-			session.close();
-		}
-		System.out.println(item);
 	}
 }

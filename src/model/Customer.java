@@ -17,8 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @NamedQueries({
 	@NamedQuery(
 			name="listAllCustomer",
@@ -55,8 +53,8 @@ public class Customer implements Serializable{
 	String pin;
 	@Column(name="phone")
 	String phone;
-	@JsonManagedReference
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade=CascadeType.ALL)
+	//@JsonManagedReference
 	Set<Loan> loans = new HashSet<Loan>();
 	public Customer() {		super();	}
 	public Customer(String name, String secondaryName, Date date, String address, String post, String pin, String phone) {
@@ -99,6 +97,7 @@ public class Customer implements Serializable{
 	public void setSecondaryName(String secondaryName) {
 		this.secondaryName = secondaryName;
 	}
+	@Column(name="date")
 	public Date getDate() {
 		return date;
 	}
