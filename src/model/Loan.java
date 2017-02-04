@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -40,51 +39,22 @@ public class Loan implements Serializable{
 	@JoinColumn(name="customer_id", nullable = false)
 	@JsonBackReference
 	Customer customer;
-	@Column(name="date", nullable=false)
-	Date date;
-	@Column(name="principal", nullable=false)
-	double principal;
-	@Column(name="return_date")
-	Date returnDate;
-	@Column(name="return_amount")
-	double returnAmount;
-	@Column(name="return_status")
-	String loanStatus;
+	@Column(name="rate_of_interest")
+	double rateOfInterest;
 	@Column(name="comments")
 	String comments;
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="loan", cascade=CascadeType.ALL)
 	@JsonManagedReference
 	List<Item> items = new ArrayList<Item>();
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="loan", cascade=CascadeType.ALL)
+	@JsonManagedReference
+	List<Transaction> transactions= new ArrayList<Transaction>();
 	public Loan() {		super();	}
-	public Loan(Customer customer, Date date, double principal, Date returnDate, double returnAmount, String loanStatus,
-			String comments) {
-		super();
-		this.customer = customer;
-		this.date = date;
-		this.principal = principal;
-		this.returnDate = returnDate;
-		this.returnAmount = returnAmount;
-		this.loanStatus = loanStatus;
-		this.comments = comments;
-	}
-
-	public Loan(Customer customer, Date date, double principal, Date returnDate, double returnAmount, String loanStatus,
-			String comments, List<Item> items) {
-		super();
-		this.customer = customer;
-		this.date = date;
-		this.principal = principal;
-		this.returnDate = returnDate;
-		this.returnAmount = returnAmount;
-		this.loanStatus = loanStatus;
-		this.comments = comments;
-		this.items = items;
-	}
 	public long getLoanId() {
 		return loanId;
 	}
 	public void setLoanId(long loanId) {
-		this.loanId= loanId;
+		this.loanId = loanId;
 	}
 	public Customer getCustomer() {
 		return customer;
@@ -92,35 +62,17 @@ public class Loan implements Serializable{
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public Date getDate() {
-		return date;
+	public String getComments() {
+		return comments;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
-	public double getPrincipal() {
-		return principal;
+	public double getRateOfInterest() {
+		return rateOfInterest;
 	}
-	public void setPrincipal(double principal) {
-		this.principal = principal;
-	}
-	public Date getReturnDate() {
-		return returnDate;
-	}
-	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
-	}
-	public double getReturnAmount() {
-		return returnAmount;
-	}
-	public void setReturnAmount(double returnAmount) {
-		this.returnAmount = returnAmount;
-	}
-	public String getLoanStatus() {
-		return loanStatus;
-	}
-	public void setLoanStatus(String loanStatus) {
-		this.loanStatus = loanStatus;
+	public void setRateOfInterest(double rateOfInterest) {
+		this.rateOfInterest = rateOfInterest;
 	}
 	public List<Item> getItems() {
 		return items;
@@ -128,10 +80,10 @@ public class Loan implements Serializable{
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-	public String getComments() {
-		return comments;
+	public List<Transaction> getTransactions() {
+		return transactions;
 	}
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 }

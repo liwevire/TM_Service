@@ -59,28 +59,6 @@ public class Customer implements Serializable{
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="customer", cascade=CascadeType.ALL)
 	Set<Loan> loans = new HashSet<Loan>();
 	public Customer() {		super();	}
-	public Customer(String name, String secondaryName, Date date, String address, String post, String pin, String phone) {
-		super();
-		this.name = name;
-		this.secondaryName = secondaryName;
-		this.date = date;
-		this.address = address;
-		this.post = post;
-		this.pin = pin;
-		this.phone = phone;
-	}
-	public Customer(String name, String secondaryName, Date date, String address, String post, String pin, String phone,
-			Set<Loan> loans) {
-		super();
-		this.name = name;
-		this.secondaryName = secondaryName;
-		this.date = date;
-		this.address = address;
-		this.post = post;
-		this.pin = pin;
-		this.phone = phone;
-		this.loans = loans;
-	}
 	public long getCustomerId() {
 		return customerId;
 	}

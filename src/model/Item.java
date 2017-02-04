@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -46,17 +44,6 @@ public class Item implements Serializable{
 	@Column(name="weight", nullable=false)
 	double weight;
 	public Item() {		super();	}
-	public Item(String name, double weight) {
-		super();
-		this.name = name;
-		this.weight = weight;
-	}
-	public Item(Loan loan, String name, double weight) {
-		super();
-		this.loan = loan;
-		this.name = name;
-		this.weight = weight;
-	}
 	public long getItemId() {
 		return itemId;
 	}

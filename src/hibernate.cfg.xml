@@ -27,6 +27,7 @@
 		<mapping class="model.Customer" />
 		<mapping class="model.Loan" />
 		<mapping class="model.Item" />
+		<mapping class="model.Transaction" />
 
 	</session-factory>
 </hibernate-configuration>
