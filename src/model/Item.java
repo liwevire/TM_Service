@@ -22,10 +22,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 			name="getItemById",
 			query="from Item i where i.itemId = :itemId"
 			),
-		@NamedQuery(
-				name="deleteItemsbyLoanId",
-				query="delete from Item i where i.loan.loanId = :loanId"
-				)
+	@NamedQuery(
+			name="deleteItemsbyLoanId",
+			query="delete from Item i where i.loan.loanId = :loanId"
+			)
 	})	
 @Entity
 @Table(name="item")

@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 import model.Item;
 
-public class ManageItem {
+public class ManageTransaction {
 	private static SessionFactory factory;
 	public void initializeFactory() {
 		try {
@@ -19,30 +19,13 @@ public class ManageItem {
 	        throw new ExceptionInInitializerError(ex);
 		}
 	}
-	public Item getItem(long itemId) {
-		initializeFactory();
-		Session session = factory.openSession();
-		Transaction tx = null;
-		Item item = null;
-		try{
-			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("getItemById").setLong("itemId", itemId);
-			System.out.println(itemId);
-			item = (Item)query.list().get(0);
-			tx.commit();
-		}catch (HibernateException he) {
-			if(tx!=null) tx.rollback();
-			he.printStackTrace();
-		}
-		return item;
-	}
-	public void deleteItem(long loanId) {
+	public void deleteTransaction(long loanId) {
 		initializeFactory();
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("deleteItemsbyLoanId").setLong("loanId", loanId);
+			Query query = session.getNamedQuery("deleteTransactionsbyLoanId").setLong("loanId", loanId);
 			query.executeUpdate();
 			tx.commit();
 		}catch (HibernateException he) {

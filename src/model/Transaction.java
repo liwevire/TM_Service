@@ -12,10 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+@NamedQueries({
+	@NamedQuery(
+			name="deleteTransactionsbyLoanId",
+			query="delete from Transaction i where i.loan.loanId = :loanId"
+			)
+	})
 @Entity
 @Table(name="transaction")
 public class Transaction implements Serializable{

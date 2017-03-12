@@ -21,11 +21,11 @@ public class CustomerController {
 		return new ManageCustomer().listCustomer(name);
 	}
 
-	@RequestMapping(value = "/find", method = RequestMethod.GET)
-	public List<Customer> findCustomer(@RequestParam("name") String name,
-			@RequestParam("secondaryName") String secondaryName) {
-		return new ManageCustomer().listCustomer(name);
-	}
+//	@RequestMapping(value = "/find", method = RequestMethod.GET)
+//	public List<Customer> findCustomer(@RequestParam("name") String name,
+//			@RequestParam("secondaryName") String secondaryName) {
+//		return new ManageCustomer().listCustomer(name);
+//	}
 	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public Customer getCustomer(@RequestParam("loanId") long loanId ) {
 		Customer customer = new ManageCustomer().getCustomer(loanId);	

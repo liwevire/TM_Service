@@ -55,6 +55,7 @@ public class ManageLoan {
 		Session session = factory.openSession();
 		Transaction tx = null;
 		new ManageItem().deleteItem(loan.getLoanId());
+		new ManageTransaction().deleteTransaction(loan.getLoanId());
 		long loanId = 0;
 		try {
 			tx = session.beginTransaction();
