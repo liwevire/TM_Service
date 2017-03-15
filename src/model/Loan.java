@@ -39,6 +39,8 @@ public class Loan implements Serializable{
 	@JoinColumn(name="customer_id", nullable = false)
 	@JsonBackReference
 	Customer customer;
+	@Column(name="loan_status")
+	String loanStatus;
 	@Column(name="rate_of_interest")
 	double rateOfInterest;
 	@Column(name="comments")
@@ -62,17 +64,23 @@ public class Loan implements Serializable{
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public String getComments() {
-		return comments;
+	public String getLoanStatus() {
+		return loanStatus;
 	}
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setLoanStatus(String loanStatus) {
+		this.loanStatus = loanStatus;
 	}
 	public double getRateOfInterest() {
 		return rateOfInterest;
 	}
 	public void setRateOfInterest(double rateOfInterest) {
 		this.rateOfInterest = rateOfInterest;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	public List<Item> getItems() {
 		return items;

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import model.Item;
 import model.Loan;
+import model.Transaction;
 import utility.ManageLoan;
 
 @EnableWebMvc
@@ -26,6 +27,9 @@ public class LoanController {
 	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public Loan getLoan(@RequestParam("loanId") long loanId ) {
 		Loan loan = new ManageLoan().getLoan(loanId);	
+		for (Transaction transaction: loan.getTransactions()) {
+			System.out.println(transaction.getDate());
+		}
 		return loan;
 	}
 	@RequestMapping(value="/update", method=RequestMethod.POST)
