@@ -41,8 +41,8 @@ public class Loan implements Serializable{
 	Customer customer;
 	@Column(name="loan_status")
 	String loanStatus;
-	@Column(name="rate_of_interest")
-	double rateOfInterest;
+	@Column(name="weight")
+	double weight;
 	@Column(name="comments")
 	String comments;
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="loan", cascade=CascadeType.ALL)
@@ -70,11 +70,11 @@ public class Loan implements Serializable{
 	public void setLoanStatus(String loanStatus) {
 		this.loanStatus = loanStatus;
 	}
-	public double getRateOfInterest() {
-		return rateOfInterest;
+	public double getWeight() {
+		return weight;
 	}
-	public void setRateOfInterest(double rateOfInterest) {
-		this.rateOfInterest = rateOfInterest;
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 	public String getComments() {
 		return comments;

@@ -9,8 +9,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import model.Item;
 import model.Loan;
+import model.Outstanding;
 import model.Transaction;
 import utility.ManageLoan;
+import utility.OutstandingCalculator;
 
 @EnableWebMvc
 @RestController
@@ -39,5 +41,9 @@ public class LoanController {
 		}
 		long result = new ManageLoan().updateLoan(loan); 
 		return result;
+	}
+	@RequestMapping(value="/getOutstanding", method=RequestMethod.GET)
+	public Outstanding updateLoan(@RequestParam("loanId") long loanId) {
+		return new OutstandingCalculator().calculateOutstanding(loanId);
 	}
 }

@@ -41,8 +41,8 @@ public class Item implements Serializable{
 	Loan loan;
 	@Column(name="name", nullable=false)
 	String name;
-	@Column(name="weight", nullable=false)
-	double weight;
+	@Column(name="quantity", nullable=false)
+	int quantity;
 	public Item() {		super();	}
 	public long getItemId() {
 		return itemId;
@@ -62,10 +62,10 @@ public class Item implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getWeight() {
-		return weight;
+	public double getQuantity() {
+		return quantity;
 	}
-	public void setWeight(double weight) {
-		this.weight = weight;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }
