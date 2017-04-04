@@ -54,7 +54,7 @@ public class OutstandingCalculator {
 			totalInterest += principal*getRoi(principal)*calculateDays(startDate, endDate)/30;
 			outstanding.setTotalDays(calculateDays(startDate, endDate));
 		}
-		else if(loan.getLoanStatus().equalsIgnoreCase("open")){
+		else if(loan.getLoanStatus().equalsIgnoreCase("open")||loan.getLoanStatus().equalsIgnoreCase("true")){
 			totalInterest  = ((double)calculateDays(startDate, new Date())*(double)getRoi(principal)*(double)principal)/30;
 			outstanding.setTotalDays(calculateDays(startDate, new Date()));
 		}

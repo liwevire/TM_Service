@@ -42,7 +42,7 @@ public class Item implements Serializable{
 	@Column(name="name", nullable=false)
 	String name;
 	@Column(name="quantity", nullable=false)
-	int quantity;
+	float quantity;
 	public Item() {		super();	}
 	public long getItemId() {
 		return itemId;
@@ -62,10 +62,10 @@ public class Item implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getQuantity() {
+	public float getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
 }
