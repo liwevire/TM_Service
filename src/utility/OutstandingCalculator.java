@@ -11,6 +11,11 @@ import model.Outstanding;
 import model.Transaction;
 
 public class OutstandingCalculator {
+	public static void main(String[] args) {
+		OutstandingCalculator calculator =new OutstandingCalculator();
+		Outstanding outstanding = calculator.calculateOutstanding(2); 
+		System.out.println(outstanding.getFirstMonthInterest());
+	}
 	public Outstanding calculateOutstanding(long loanId) {
 		Outstanding outstanding = new Outstanding(); 
 		Loan loan = new ManageLoan().getLoan(loanId);
@@ -51,12 +56,12 @@ public class OutstandingCalculator {
 				endDate = transaction.getDate();
 		}
 		if(loan.getLoanStatus().equalsIgnoreCase("closed")){
-			totalInterest += principal*getRoi(principal)*calculateDays(startDate, endDate)/30;
+			totalInterest += principal*getRoi(principal)*calculateDays(dateCursor, endDate)/30;
 			outstanding.setTotalDays(calculateDays(startDate, endDate));
 		}
 		else if(loan.getLoanStatus().equalsIgnoreCase("open")||loan.getLoanStatus().equalsIgnoreCase("true")){
-			totalInterest  = ((double)calculateDays(startDate, new Date())*(double)getRoi(principal)*(double)principal)/30;
-			outstanding.setTotalDays(calculateDays(startDate, new Date()));
+			totalInterest  += ((double)calculateDays(dateCursor, new Date())*(double)getRoi(initialPrincipal)*(double)principal)/30;
+			outstanding.setTotalDays(calculateDays(dateCursor, new Date()));
 		}
 		outstanding.setOutstandingInterest(totalInterest-creditOnInterest);
 		outstanding.setCurrentPrincipal(principal);
