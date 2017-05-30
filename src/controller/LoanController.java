@@ -11,7 +11,7 @@ import model.Item;
 import model.Loan;
 import model.Outstanding;
 import model.Transaction;
-import utility.ManageLoan;
+import utility.LoanManager;
 import utility.OutstandingCalculator;
 
 @EnableWebMvc
@@ -23,12 +23,12 @@ public class LoanController {
 		for (Item item: loan.getItems()) {
 			item.setLoan(loan);
 		}
-		long result = new ManageLoan().addLoan(loan); 
+		long result = new LoanManager().addLoan(loan); 
 		return result;
 	}
 	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public Loan getLoan(@RequestParam("loanId") long loanId ) {
-		Loan loan = new ManageLoan().getLoan(loanId);	
+		Loan loan = new LoanManager().getLoan(loanId);	
 		for (Transaction transaction: loan.getTransactions()) {
 			System.out.println(transaction.getDate());
 		}
@@ -39,7 +39,7 @@ public class LoanController {
 		for (Item item: loan.getItems()) {
 			item.setLoan(loan);
 		}
-		long result = new ManageLoan().updateLoan(loan); 
+		long result = new LoanManager().updateLoan(loan); 
 		return result;
 	}
 	@RequestMapping(value="/getOutstanding", method=RequestMethod.GET)

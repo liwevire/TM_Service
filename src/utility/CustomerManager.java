@@ -5,26 +5,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
 import model.Customer;
-import model.Loan;
 
-public class ManageCustomer {
+public class CustomerManager {
 	private static SessionFactory factory;
 	
-	public void initializeFactory() {
-		try {
-			factory = new Configuration().configure().buildSessionFactory();
-		} catch (Throwable ex) {
-			System.err.println("Failed to create sessionFactory object." + ex);
-	        throw new ExceptionInInitializerError(ex);
-		}
-	}
 	public List<Customer> listCustomer(String name){
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		List<Customer> customers = null;
@@ -40,7 +30,7 @@ public class ManageCustomer {
 		return customers;
 	}
 	public Customer getCustomer(long loanId) {
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Customer customer = null;

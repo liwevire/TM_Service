@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 import model.Item;
 
-public class ManageTransaction {
+public class TransactionManager {
 	private static SessionFactory factory;
 	public void initializeFactory() {
 		try {

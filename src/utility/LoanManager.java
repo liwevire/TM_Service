@@ -5,22 +5,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import model.Loan;
 
-public class ManageLoan {
+public class LoanManager {
 	private static SessionFactory factory;
-	public void initializeFactory() {
-		try {
-			factory = new Configuration().configure().buildSessionFactory();
-		} catch (Throwable ex) {
-			System.err.println("Failed to create sessionFactory object." + ex);
-	        throw new ExceptionInInitializerError(ex);
-		}
-	}
 	public long addLoan(Loan loan){
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		long loanId = 0;
@@ -35,7 +26,7 @@ public class ManageLoan {
 		return loanId;
 	}
 	public Loan getLoan(long loanId) {
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Loan loan = null;
@@ -51,11 +42,11 @@ public class ManageLoan {
 		return loan;
 	}
 	public long updateLoan(Loan loan){
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
-		new ManageItem().deleteItem(loan.getLoanId());
-		new ManageTransaction().deleteTransaction(loan.getLoanId());
+		new ItemManager().deleteItem(loan.getLoanId());
+		new TransactionManager().deleteTransaction(loan.getLoanId());
 		long loanId = 0;
 		try {
 			tx = session.beginTransaction();

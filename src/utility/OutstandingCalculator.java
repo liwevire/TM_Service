@@ -18,7 +18,7 @@ public class OutstandingCalculator {
 	}
 	public Outstanding calculateOutstanding(long loanId) {
 		Outstanding outstanding = new Outstanding(); 
-		Loan loan = new ManageLoan().getLoan(loanId);
+		Loan loan = new LoanManager().getLoan(loanId);
 		List<Transaction> transactions = loan.getTransactions();
 		double principal = 0;
 		double debit = 0;

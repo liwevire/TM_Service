@@ -5,22 +5,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import model.Item;
 
-public class ManageItem {
+public class ItemManager {
 	private static SessionFactory factory;
-	public void initializeFactory() {
-		try {
-			factory = new Configuration().configure().buildSessionFactory();
-		} catch (Throwable ex) {
-			System.err.println("Failed to create sessionFactory object." + ex);
-	        throw new ExceptionInInitializerError(ex);
-		}
-	}
 	public Item getItem(long itemId) {
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Item item = null;
@@ -37,7 +28,7 @@ public class ManageItem {
 		return item;
 	}
 	public void deleteItem(long loanId) {
-		initializeFactory();
+		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{

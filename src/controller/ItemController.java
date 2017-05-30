@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import model.Item;
-import utility.ManageItem;
+import utility.ItemManager;
 
 @EnableWebMvc
 @RestController
@@ -15,7 +15,7 @@ import utility.ManageItem;
 public class ItemController {
 	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public Item getItem(@RequestParam("itemId") long itemId ) {
-		Item item = new ManageItem().getItem(itemId);	
+		Item item = new ItemManager().getItem(itemId);	
 		return item;
 	}
 }
