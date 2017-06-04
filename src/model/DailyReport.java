@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NamedNativeQueries({
 	@NamedNativeQuery(
 	name = "calculateDailyReport",
-	query = "CALL calculateDailyReport(:date)",
+	query = "CALL calculateDailyReport(:date,:recursionIndex)",
 	resultClass = DailyReport.class
 	)
 })

@@ -13,7 +13,7 @@ public class TransactionManager {
 	private static SessionFactory factory;
 	public void initializeFactory() {
 		try {
-			factory = new Configuration().configure().buildSessionFactory();
+			factory =  DbSessionManager.getSessionFactory("core");
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 	        throw new ExceptionInInitializerError(ex);

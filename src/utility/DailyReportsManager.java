@@ -19,7 +19,7 @@ public class DailyReportsManager {
 		DailyReport dailyReport = null;
 		try{
 			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("calculateDailyReport").setParameter("date", date);
+			Query query = session.getNamedQuery("calculateDailyReport").setParameter("date", date).setParameter("recursionIndex", 0);
 			dailyReport = (DailyReport)query.list().get(0);
 			tx.commit();
 		}catch (HibernateException he) {
