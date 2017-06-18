@@ -9,19 +9,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
 
 @NamedNativeQueries({
 	@NamedNativeQuery(
-	name = "calculateDailyReport",
-	query = "CALL calculateDailyReport(:date,:recursionIndex)",
-	resultClass = DailyReport.class
+		name = "calculateDailyReport",
+		query = "CALL calculateDailyReport(:date,:recursionIndex)"
+	)
+})
+@NamedQueries({
+	@NamedQuery(
+		name="getReportByDate",
+		query="from Daily d where d.date = :reportDate"
 	)
 })
 @Entity
-@Table(name="daily")
-public class DailyReport implements Serializable{
+@Table(name="Daily")
+public class Daily implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,6 +43,9 @@ public class DailyReport implements Serializable{
 	private double firstMonthInterest;
 	@Column(name="appraisalCharges")
 	private double appraisalCharges;
+	@Column(name="closingBalance")
+	private double closingBalance;
+	
 	public Date getDate() {
 		return date;
 	}
@@ -64,6 +73,12 @@ public class DailyReport implements Serializable{
 	public double getFirstMonthInterest() {
 		return firstMonthInterest;
 	}
+	public double getClosingBalance() {
+		return closingBalance;
+	}
+	public void setClosingBalance(double closingBalance) {
+		this.closingBalance = closingBalance;
+	}
 	public void setFirstMonthInterest(double firstMonthInterest) {
 		this.firstMonthInterest = firstMonthInterest;
 	}
@@ -72,5 +87,19 @@ public class DailyReport implements Serializable{
 	}
 	public void setAppraisalCharges(double appraisalCharges) {
 		this.appraisalCharges = appraisalCharges;
+	}
+	public Daily() {
+		super();
+	}
+	public Daily(Date date, double principal, double roi, double rop, double firstMonthInterest,
+			double appraisalCharges, double closingBalance) {
+		super();
+		this.date = date;
+		this.principal = principal;
+		this.roi = roi;
+		this.rop = rop;
+		this.firstMonthInterest = firstMonthInterest;
+		this.appraisalCharges = appraisalCharges;
+		this.closingBalance = closingBalance;
 	}
 }

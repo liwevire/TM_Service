@@ -15,7 +15,6 @@ public class TransactionManager {
 		try {
 			factory =  DbSessionManager.getSessionFactory("core");
 		} catch (Throwable ex) {
-			System.err.println("Failed to create sessionFactory object." + ex);
 	        throw new ExceptionInInitializerError(ex);
 		}
 	}

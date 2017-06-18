@@ -29,9 +29,9 @@ public class LoanController {
 	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public Loan getLoan(@RequestParam("loanId") long loanId ) {
 		Loan loan = new LoanManager().getLoan(loanId);	
-		for (Transaction transaction: loan.getTransactions()) {
-			System.out.println(transaction.getDate());
-		}
+//		for (Transaction transaction: loan.getTransactions()) {
+//			System.out.println(transaction.getDate());
+//		}
 		return loan;
 	}
 	@RequestMapping(value="/update", method=RequestMethod.POST)

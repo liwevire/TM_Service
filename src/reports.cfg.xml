@@ -13,7 +13,7 @@
 
 		<!-- Assume test is the database name -->
 		<property name="hibernate.connection.url">
-			jdbc:mysql://localhost:3306/tm_report
+			jdbc:mysql://localhost:3306/tm_report?useSSL=true
 		</property>
 		<property name="hibernate.connection.username">
 			tm_dbUser
@@ -23,7 +23,7 @@
 		</property>
 
 		<!-- List of XML mapping files -->
-		<mapping class="model.DailyReport" />
+		<mapping class="model.Daily" />
 
 	</session-factory>
 </hibernate-configuration>

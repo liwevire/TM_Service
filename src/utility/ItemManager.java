@@ -18,7 +18,7 @@ public class ItemManager {
 		try{
 			tx = session.beginTransaction();
 			Query query = session.getNamedQuery("getItemById").setLong("itemId", itemId);
-			System.out.println(itemId);
+//			System.out.println(itemId);
 			item = (Item)query.list().get(0);
 			tx.commit();
 		}catch (HibernateException he) {

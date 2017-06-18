@@ -19,7 +19,6 @@ public class DbSessionManager {
             return sessionFactory;        
         }
         catch (Throwable ex) {
-            System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
