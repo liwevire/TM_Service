@@ -6,9 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
 
-import model.Loan;
-import model.Outstanding;
-import model.Transaction;
+import model.core.Loan;
+import model.core.Outstanding;
+import model.core.Transaction;
 
 public class OutstandingCalculator {
 	public static void main(String[] args) {

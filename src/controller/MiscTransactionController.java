@@ -8,15 +8,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import model.reports.Daily;
-import utility.DailyReportsManager;
+import model.core.MiscTransaction;
+import utility.MiscTransactionManager;
 
 @EnableWebMvc
 @RestController
-@RequestMapping("/reports")
-public class ReportsController {
-	@RequestMapping(value="/calculateDaily", method=RequestMethod.GET)
-	public Daily calculateDailyReport(@RequestParam("calculationDate") Date date) {
-		return new DailyReportsManager().calculateDailyReport(date);
+@RequestMapping("/miscTransaction")
+public class MiscTransactionController {
+	@RequestMapping(value="/get", method=RequestMethod.GET)
+	public MiscTransaction calculateDailyReport(@RequestParam("date") Date date) {
+		System.out.println(date.toString());
+		return new MiscTransactionManager().getMiscTransaction(date);
 	}
 }

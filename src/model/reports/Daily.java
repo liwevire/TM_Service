@@ -1,4 +1,4 @@
-package model;
+package model.reports;
 
 import java.io.Serializable;
 import java.util.Date;

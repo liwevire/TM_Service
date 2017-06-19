@@ -6,9 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.util.List;
+import model.core.Customer;
 
-import model.Customer;
+import java.util.List;
 
 public class CustomerManager {
 	private static SessionFactory factory;

@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import model.Item;
+import model.core.Item;
 
 public class TransactionManager {
 	private static SessionFactory factory;

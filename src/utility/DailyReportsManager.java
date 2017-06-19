@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import model.Daily;
+import model.reports.Daily;
 
 public class DailyReportsManager {
 	private static SessionFactory factory;

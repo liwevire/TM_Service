@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import model.Item;
-import model.Loan;
-import model.Outstanding;
-import model.Transaction;
+import model.core.Item;
+import model.core.Loan;
+import model.core.Outstanding;
+import model.core.Transaction;
 import utility.LoanManager;
 import utility.OutstandingCalculator;
 

@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import model.Loan;
+import model.core.Loan;
 
 public class LoanManager {
 	private static SessionFactory factory;

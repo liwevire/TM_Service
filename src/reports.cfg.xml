@@ -23,7 +23,7 @@
 		</property>
 
 		<!-- List of XML mapping files -->
-		<mapping class="model.Daily" />
+		<mapping class="model.reports.Daily" />
 
 	</session-factory>
 </hibernate-configuration>

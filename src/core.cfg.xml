@@ -24,10 +24,11 @@
 
 		<!-- List of XML mapping files -->
 		<!-- <mapping resource="Customer.hbm.xml"/> -->
-		<mapping class="model.Customer" />
-		<mapping class="model.Loan" />
-		<mapping class="model.Item" />
-		<mapping class="model.Transaction" />
+		<mapping class="model.core.Customer" />
+		<mapping class="model.core.Loan" />
+		<mapping class="model.core.Item" />
+		<mapping class="model.core.Transaction" />
+		<mapping class="model.core.MiscTransaction" />
 
 	</session-factory>
 </hibernate-configuration>
