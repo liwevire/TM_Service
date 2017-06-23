@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,7 @@ import utility.MiscTransactionManager;
 @RequestMapping("/miscTransaction")
 public class MiscTransactionController {
 	@RequestMapping(value="/get", method=RequestMethod.GET)
-	public MiscTransaction calculateDailyReport(@RequestParam("date") Date date) {
+	public List<MiscTransaction> calculateDailyReport(@RequestParam("date") Date date) {
 		System.out.println(date.toString());
 		return new MiscTransactionManager().getMiscTransaction(date);
 	}

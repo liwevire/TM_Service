@@ -1,6 +1,8 @@
 package utility;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -12,20 +14,20 @@ import model.core.MiscTransaction;
 
 public class MiscTransactionManager {
 	private static SessionFactory factory;
-	public MiscTransaction getMiscTransaction(Date date){
-		factory =  DbSessionManager.getSessionFactory("core");
+	public List<MiscTransaction> getMiscTransaction(Date date){
+		factory=  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
-		MiscTransaction miscTransaction = null;
+		List<MiscTransaction> miscTransactions = null;
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
 			Query query = session.getNamedQuery("getMiscTransactionByDate").setDate("date", date);
-			miscTransaction = (MiscTransaction)query.list().get(0);
+			miscTransactions = (List<MiscTransaction>)query.list();
 			tx.commit();
 		}catch (HibernateException he) {
 			if(tx!=null) tx.rollback();
 			he.printStackTrace();
 		}
-		return miscTransaction;
+		return miscTransactions;
 	}
 }

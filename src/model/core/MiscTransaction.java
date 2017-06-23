@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(
 			name="getMiscTransactionByDate",
-			query="from MiscTransaction m where m.date = :date"
+			query="from MiscTransaction m where m.date = date(:date)"
 			)
 //	@NamedQuery(
 //			name="getLoanById",
