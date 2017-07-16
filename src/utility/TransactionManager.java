@@ -18,13 +18,13 @@ public class TransactionManager {
 	        throw new ExceptionInInitializerError(ex);
 		}
 	}
-	public void deleteTransaction(long loanId) {
+	public void deleteTransaction(String loanId) {
 		initializeFactory();
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("deleteTransactionsbyLoanId").setLong("loanId", loanId);
+			Query query = session.getNamedQuery("deleteTransactionsbyLoanId").setString("loanId", loanId);
 			query.executeUpdate();
 			tx.commit();
 		}catch (HibernateException he) {

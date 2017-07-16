@@ -29,14 +29,14 @@ public class CustomerManager {
 		}
 		return customers;
 	}
-	public Customer getCustomer(long loanId) {
+	public Customer getCustomerByLoan(String loanId) {
 		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		Customer customer = null;
 		try{
 			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("getCustomerByLoanId").setLong("loanId", loanId);
+			Query query = session.getNamedQuery("getByLoanId").setString("loanId", loanId);
 			customer = (Customer)query.list().get(0);
 			tx.commit();
 		}catch (HibernateException he) {
@@ -44,5 +44,72 @@ public class CustomerManager {
 			he.printStackTrace();
 		}
 		return customer;
+	}
+	
+	
+	public long addCustomer(Customer customer){
+		factory =  DbSessionManager.getSessionFactory("core");
+		Session session = factory.openSession();
+		Transaction tx = null;
+		long customerId = 0;
+		try {
+			tx = session.beginTransaction();
+			customerId = (long)session.save(customer);
+			tx.commit();
+		} catch (HibernateException he) {
+			if(tx!=null) tx.rollback();
+			he.printStackTrace();
+		}
+		return customerId;
+	}
+	public Customer getCustomer(String customerId) {
+		factory =  DbSessionManager.getSessionFactory("core");
+		Session session = factory.openSession();
+		Transaction tx = null;
+		Customer customer= null;
+		try{
+			tx = session.beginTransaction();
+			Query query = session.getNamedQuery("getByCustomerId").setString("customerId", customerId);
+			customer = (Customer)query.list().get(0);
+			tx.commit();
+		}catch (HibernateException he) {
+			if(tx!=null) tx.rollback();
+			he.printStackTrace();
+		}
+		return customer;
+	}
+	public long updateCustomer(Customer customer){
+		factory =  DbSessionManager.getSessionFactory("core");
+		Session session = factory.openSession();
+		Transaction tx = null;
+		long customerId = 0;
+		try {
+			tx = session.beginTransaction();
+			session.update(customer);
+			tx.commit();
+		} catch (HibernateException he) {
+			if(tx!=null) tx.rollback();
+			he.printStackTrace();
+		}
+		return customerId;
+	}
+	public String deleteCustomer(String customerId) {
+		factory =  DbSessionManager.getSessionFactory("core");
+		String status = "failure";
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query = session.getNamedQuery("deletebyCustomerId").setString("customerId", customerId);
+			query.executeUpdate();
+			tx.commit();
+			status = "success";
+		}catch (HibernateException he) {
+			if(tx!=null) tx.rollback();
+			he.printStackTrace();
+			System.out.println(he);
+			status= "failure";
+		}
+		return status;
 	}
 }

@@ -13,10 +13,10 @@ import model.core.Transaction;
 public class OutstandingCalculator {
 	public static void main(String[] args) {
 		OutstandingCalculator calculator =new OutstandingCalculator();
-		Outstanding outstanding = calculator.calculateOutstanding(2); 
+		Outstanding outstanding = calculator.calculateOutstanding("2"); 
 		System.out.println(outstanding.getFirstMonthInterest());
 	}
-	public Outstanding calculateOutstanding(long loanId) {
+	public Outstanding calculateOutstanding(String loanId) {
 		Outstanding outstanding = new Outstanding(); 
 		Loan loan = new LoanManager().getLoan(loanId);
 		List<Transaction> transactions = loan.getTransactions();

@@ -29,8 +29,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 			query="from Customer c where lower(c.name) like :name"
 			),
 	@NamedQuery(
-			name="getCustomerByLoanId",
+			name="getByLoanId",
 			query="from Customer c where c.customerId = (select l.customer.customerId from Loan l where l.loanId = :loanId)"
+			),
+	@NamedQuery(
+			name="getByCustomerId",
+			query="from Customer c where c.customerId = :customerId)"
+			),
+	@NamedQuery(
+			name="deletebyCustomerId",
+			query="delete from Customer c where c.customerId = :customerId)"
 			)
 })
 @Entity

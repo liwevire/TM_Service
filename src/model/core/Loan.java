@@ -8,11 +8,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,16 +25,45 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@NamedQuery(
 			name="getLoanById",
 			query="from Loan l where l.loanId = :loanId"
+			),
+	@NamedQuery(
+			name="deleteLoanbyLoanId",
+			query="delete from Loan l where l.loanId = :loanId"
 			)
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(
+			name = "getLoansByDate",
+			query = "select * from tm_core.loan where tm_core.loan.loan_id in "
+						+ "(select tm_core.loan.loan_id from tm_core.loan inner join tm_core.transaction " + 
+							"on tm_core.loan.loan_id = tm_core.transaction.loan_id " + 
+							"where " + 
+								"loan_status = 'open' and " + 
+								"category = 'principal' and " + 
+								"date = :date " + 
+						"order by date asc)"
+	),
+	@NamedNativeQuery(
+			name = "getLoansBetweenDates",
+			query = "select * from tm_core.loan where tm_core.loan.loan_id in "
+						+ "(select tm_core.loan.loan_id from tm_core.loan inner join tm_core.transaction " + 
+							"on tm_core.loan.loan_id = tm_core.transaction.loan_id " + 
+							"where " + 
+								"loan_status = 'open' and " + 
+								"category = 'principal' and " + 
+								"date >= :fromDate and " +
+								"date <= :toDate " +
+						"order by date asc)"
+	)
 })
 @Entity
 @Table(name="loan")
 public class Loan implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="loan_id", nullable=false, unique=true)
-	long loanId;
+	String loanId;
 	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id", nullable = false)
 	@JsonBackReference
@@ -52,10 +81,10 @@ public class Loan implements Serializable{
 	@JsonManagedReference
 	List<Transaction> transactions= new ArrayList<Transaction>();
 	public Loan() {		super();	}
-	public long getLoanId() {
+	public String getLoanId() {
 		return loanId;
 	}
-	public void setLoanId(long loanId) {
+	public void setLoanId(String loanId) {
 		this.loanId = loanId;
 	}
 	public Customer getCustomer() {

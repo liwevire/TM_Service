@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,15 +20,30 @@ public class CustomerController {
 	public List<Customer> findCustomer(@RequestParam("name") String name) throws Exception {
 		return new CustomerManager().listCustomer(name);
 	}
-
-//	@RequestMapping(value = "/find", method = RequestMethod.GET)
-//	public List<Customer> findCustomer(@RequestParam("name") String name,
-//			@RequestParam("secondaryName") String secondaryName) {
-//		return new ManageCustomer().listCustomer(name);
-//	}
-	@RequestMapping(value="/get", method=RequestMethod.GET)
-	public Customer getCustomer(@RequestParam("loanId") long loanId ) {
-		Customer customer = new CustomerManager().getCustomer(loanId);	
+	@RequestMapping(value="/getByLoanId", method=RequestMethod.GET)
+	public Customer getByLoanId(@RequestParam("loanId") String loanId ) {
+		Customer customer = new CustomerManager().getCustomerByLoan(loanId);	
 		return customer;
+	}
+	
+	@RequestMapping(value="/getByCustomerId", method=RequestMethod.GET)
+	public Customer getCustomerByCustomerId(@RequestParam("customerId") String customerId ) {
+		Customer customer = new CustomerManager().getCustomer(customerId);	
+		return customer;
+	}
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public long addCustomer(@RequestBody Customer customer) {
+		long result = new CustomerManager().addCustomer(customer);
+		return result;
+	}
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public long updateCustomer(@RequestBody Customer customer) {
+		long result = new CustomerManager().updateCustomer(customer);
+		return result;
+	}
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public String deleteCustomer(@RequestParam("customerId") String customerId ) {
+		return new CustomerManager().deleteCustomer(customerId);	
+		
 	}
 }

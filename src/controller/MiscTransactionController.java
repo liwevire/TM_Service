@@ -18,7 +18,6 @@ import utility.MiscTransactionManager;
 public class MiscTransactionController {
 	@RequestMapping(value="/get", method=RequestMethod.GET)
 	public List<MiscTransaction> calculateDailyReport(@RequestParam("date") Date date) {
-		System.out.println(date.toString());
 		return new MiscTransactionManager().getMiscTransaction(date);
 	}
 }

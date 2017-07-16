@@ -27,13 +27,13 @@ public class ItemManager {
 		}
 		return item;
 	}
-	public void deleteItem(long loanId) {
+	public void deleteItem(String loanId) {
 		factory =  DbSessionManager.getSessionFactory("core");
 		Session session = factory.openSession();
 		Transaction tx = null;
 		try{
 			tx = session.beginTransaction();
-			Query query = session.getNamedQuery("deleteItemsbyLoanId").setLong("loanId", loanId);
+			Query query = session.getNamedQuery("deleteItemsbyLoanId").setString("loanId", loanId);
 			query.executeUpdate();
 			tx.commit();
 		}catch (HibernateException he) {
