@@ -16,12 +16,16 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(
 			name="getMiscTransactionByDate",
-			query="from MiscTransaction m where m.date = date(:date)"
+			query="from MiscTransaction mt where mt.date = date(:date)"
+			),
+	@NamedQuery(
+			name="getByMiscTransactionId",
+			query="from MiscTransaction mt where mt.transactionId = :transactionId)"
+			),
+	@NamedQuery(
+			name="deleteByTransactionId",
+			query="delete from MiscTransaction mt where mt.transactionId = :transactionId)"
 			)
-//	@NamedQuery(
-//			name="getLoanById",
-//			query="from Loan l where l.loanId = :loanId"
-//			)
 	})	
 @Entity
 @Table(name="misctransaction")

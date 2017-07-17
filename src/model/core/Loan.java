@@ -30,6 +30,21 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 			name="deleteLoanbyLoanId",
 			query="delete from Loan l where l.loanId = :loanId"
 			)
+//	@NamedQuery(
+//			name="getLoansBetweenDates2",
+//			query="from Loan l where l.loanId in "
+//					+ "(select lo.loanId from Loan lo where lo.loanId = 131 or lo.loanId = 137)"
+//			),
+//	@NamedQuery(
+//			name="getLoansBetweenDates",
+//			query="select lo from Transaction tr join tr.Loan lo "
+//						+ "on lo.loanId = tr.Loan.loanId "
+//						+ "where "
+//							+ "lo.loan_status = 'open' and "
+//							+ "category = 'principal' and "
+//							+ "date = :date "
+//						+ "order by date asc"
+//			)
 })
 @NamedNativeQueries({
 	@NamedNativeQuery(
@@ -44,7 +59,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 						"order by date asc)"
 	),
 	@NamedNativeQuery(
-			name = "getLoansBetweenDates",
+			name = "getLoansBetweenDates1",
 			query = "select * from tm_core.loan where tm_core.loan.loan_id in "
 						+ "(select tm_core.loan.loan_id from tm_core.loan inner join tm_core.transaction " + 
 							"on tm_core.loan.loan_id = tm_core.transaction.loan_id " + 

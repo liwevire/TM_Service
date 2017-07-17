@@ -29,6 +29,22 @@ public class DailyReportsManager {
 		}
 		return getDailyReport(date);
 	}
+//	public Daily recalculateDailyReport(Date date){
+//		factory =  DbSessionManager.getSessionFactory("reports");
+//		Session session = factory.openSession();
+//		Transaction tx = null;
+//		try{
+//			tx = session.beginTransaction();
+//			Query query = session.getNamedQuery("recalculateDailyReport").setParameter("date", date);
+//			Object object =  query.executeUpdate();
+//			System.out.println(object.toString());
+//			tx.commit();
+//		}catch (HibernateException he) {
+//			if(tx!=null) tx.rollback();
+//			he.printStackTrace();
+//		}
+//		return getDailyReport(date);
+//	}
 	public Daily getDailyReport(Date date) {
 		factory =  DbSessionManager.getSessionFactory("reports");
 		Session session = factory.openSession();

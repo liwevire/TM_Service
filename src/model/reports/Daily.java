@@ -17,6 +17,10 @@ import javax.persistence.Table;
 	@NamedNativeQuery(
 		name = "calculateDailyReport",
 		query = "CALL calculateDailyReport(:date,:recursionIndex)"
+	),
+	@NamedNativeQuery(
+		name = "recalculateDailyReport",
+		query = "CALL recalculateDailyReport(:date)"
 	)
 })
 @NamedQueries({

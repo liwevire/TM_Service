@@ -19,4 +19,8 @@ public class ReportsController {
 	public Daily calculateDailyReport(@RequestParam("calculationDate") Date date) {
 		return new DailyReportsManager().calculateDailyReport(date);
 	}
+//	@RequestMapping(value="/recalculateDaily", method=RequestMethod.GET)
+//	public Daily recalculateDailyReport(@RequestParam("calculationDate") Date date) {
+//		return new DailyReportsManager().recalculateDailyReport(date);
+//	}
 }
